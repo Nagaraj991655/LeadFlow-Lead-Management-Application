@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'git@github.com:Nagaraj991655/LeadFlow-Lead-Management-Application.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'docker compose build'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                docker compose down || true
+                docker compose up -d
+                '''
+            }
+        }
+    }
+}
