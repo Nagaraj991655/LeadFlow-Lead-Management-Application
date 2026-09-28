@@ -1,0 +1,52 @@
+services:
+
+  postgres:
+    image: postgres:15
+
+    container_name: postgres
+
+    environment:
+      POSTGRES_DB: leadflow
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+
+    build:
+      context: ./backend
+
+    container_name: backend
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      DATABASE_URL: postgresql://admin:admin123@postgres:5432/leadflow
+
+    depends_on:
+      - postgres
+
+  frontend:
+
+    build:
+      context: .
+
+    container_name: frontend
+
+    environment:
+      VITE_API_URL: http://44.223.51.160:8000
+
+    ports:
+      - "5173:5173"
+
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
