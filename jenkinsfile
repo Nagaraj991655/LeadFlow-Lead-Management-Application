@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'git@github.com:Nagaraj991655/LeadFlow-Lead-Management-Application.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'docker compose build'
@@ -23,5 +17,6 @@ pipeline {
                 '''
             }
         }
+
     }
 }
