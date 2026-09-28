@@ -6,7 +6,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 sh '''
-                docker compose down || true
+                docker compose -p leadflow down --remove-orphans || true
                 '''
             }
         }
@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                docker compose build
+                docker compose -p leadflow build
                 '''
             }
         }
@@ -22,10 +22,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                docker compose up -d
+                docker compose -p leadflow up -d
                 '''
             }
         }
-
     }
 }
