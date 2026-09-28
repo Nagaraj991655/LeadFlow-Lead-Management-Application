@@ -3,8 +3,6 @@ services:
   postgres:
     image: postgres:15
 
-    container_name: postgres
-
     environment:
       POSTGRES_DB: leadflow
       POSTGRES_USER: admin
@@ -21,8 +19,6 @@ services:
     build:
       context: ./backend
 
-    container_name: backend
-
     ports:
       - "8000:8000"
 
@@ -36,8 +32,6 @@ services:
 
     build:
       context: .
-
-    container_name: frontend
 
     environment:
       VITE_API_URL: http://44.223.51.160:8000
